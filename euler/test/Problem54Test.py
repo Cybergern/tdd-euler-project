@@ -35,5 +35,61 @@ class TestProblem54(unittest.TestCase):
         hand = Problem54.Hand("9C TD JH QS KD")
         self.assertFalse(hand.isRoyalStraight())
 
+    def test_shouldBeAbleToDetectAFlush(self):
+        hand = Problem54.Hand("9C TC JC QC KC")
+        self.assertTrue(hand.isFlush())
+
+    def test_shouldBeAbleToDetectANonFlush(self):
+        hand = Problem54.Hand("9S TC JC QC KC")
+        self.assertFalse(hand.isFlush())
+        
+    def test_shouldBeAbleToDetectAPair(self):
+        hand = Problem54.Hand("9S TC TH QC KC")
+        self.assertTrue(hand.hasPair())
+
+    def test_shouldBeAbleToDetectANonPair(self):
+        hand = Problem54.Hand("9S TC TS TH KC")
+        self.assertFalse(hand.hasPair())
+        
+    def test_shouldBeAbleToDetectTwoPairs(self):
+        hand = Problem54.Hand("9S TC TS KH KC")
+        self.assertTrue(hand.hasTwoPairs())
+
+    def test_shouldBeAbleToDetectANonTwoPairs(self):
+        hand = Problem54.Hand("9S 9C TC JH KC")
+        self.assertFalse(hand.hasTwoPairs())
+        
+    def test_shouldBeAbleToDetectThreeOfAKind(self):
+        hand = Problem54.Hand("9S TC TS TH KC")
+        self.assertTrue(hand.hasThreeOfAKind())
+
+    def test_shouldBeAbleToDetectANonThreeOfAKind(self):
+        hand = Problem54.Hand("9S 9C TC TH KC")
+        self.assertFalse(hand.hasThreeOfAKind())
+        
+    def test_shouldBeAbleToDetectFourOfAKind(self):
+        hand = Problem54.Hand("9S TC TS TH TD")
+        self.assertTrue(hand.hasFourOfAKind())
+
+    def test_shouldBeAbleToDetectANonFourOfAKind(self):
+        hand = Problem54.Hand("9S TC TD TH KC")
+        self.assertFalse(hand.hasFourOfAKind())
+        
+    def test_shouldBeAbleToDetectAFullHouse(self):
+        hand = Problem54.Hand("9S 9C TS TH TD")
+        self.assertTrue(hand.isFullHouse())
+
+    def test_shouldBeAbleToDetectANonFullHouse(self):
+        hand = Problem54.Hand("9S TC TD TH JC")
+        self.assertFalse(hand.isFullHouse())
+        
+    def test_shouldBeAbleToFindHighestCard(self):
+        hand = Problem54.Hand("9S TC TD TH JC")
+        self.assertEquals("J", hand.getXHighestCard())
+        
+    def test_shouldBeAbleToFind2ndHighestCard(self):
+        hand = Problem54.Hand("9S TC TD TH JC")
+        self.assertEquals("T", hand.getXHighestCard(2))
+    
 if __name__ == '__main__':
     unittest.main()

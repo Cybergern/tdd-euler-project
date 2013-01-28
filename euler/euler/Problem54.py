@@ -29,6 +29,9 @@ class Hand:
     def getValues(self):
         return [card.value for card in self.__cards]
     
+    def getSuits(self):
+        return [card.suit for card in self.__cards]
+    
     def toString(self):
         cardString = ""
         for card in self.__cards:
@@ -49,6 +52,28 @@ class Hand:
     
     def isRoyalStraight(self):
         return self.ORDER[-5:] == self.getValues()
+    
+    def isFlush(self):
+        return len(set(self.getSuits())) == 1
+    
+    def hasPair(self):
+        return len(set(self.getValues())) == 4
+    
+    def hasTwoPairs(self):
+        return len(set(self.getValues())) == 3 and \
+            max([self.getValues().count(card.value) for card in self.__cards]) == 2
+    
+    def hasThreeOfAKind(self):
+        return max([self.getValues().count(card.value) for card in self.__cards]) == 3
+
+    def hasFourOfAKind(self):
+        return max([self.getValues().count(card.value) for card in self.__cards]) == 4
+    
+    def isFullHouse(self):
+        return sorted(set([self.getValues().count(card.value) for card in self.__cards])) == [2,3]
+    
+    def getXHighestCard(self, rank=1):
+        return self.getValues()[-rank]
 
 class Problem54:
     def answer(self):
