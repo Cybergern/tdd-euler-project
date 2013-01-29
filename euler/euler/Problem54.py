@@ -1,7 +1,7 @@
 class Card:
     def __init__(self, value, suit):
-        assert value in ["2","3","4","5","6","7","8","9","T","J","Q","K","A"]
-        assert suit in ["H","D","C","S"]
+        assert value in Hand.ORDER
+        assert suit in Hand.SUITS
         self.__suit = suit
         self.__value = value
         
@@ -32,6 +32,9 @@ class Hand:
     def getSuits(self):
         return [card.suit for card in self.__cards]
     
+    def getCounts(self):
+        return [self.getValues().count(card.value) for card in self.__cards]
+    
     def toString(self):
         cardString = ""
         for card in self.__cards:
@@ -48,33 +51,93 @@ class Hand:
     
     def isStraight(self):
         i = self.ORDER.index(self.__cards[0].value)
-        return self.ORDER[i:i+5] == self.getValues()
+        if self.ORDER[i:i+5] != self.getValues():
+            return -1
+        return i+4
     
-    def isRoyalStraight(self):
-        return self.ORDER[-5:] == self.getValues()
+    def isStraightFlush(self):
+        if self.isStraight() == -1 or self.isFlush() == -1:
+            return -1
+        i = self.ORDER.index(self.__cards[4].value)
+        return i
+    
+    def isRoyalStraightFlush(self):
+        if self.ORDER[-5:] != self.getValues() or self.isFlush() == -1:
+            return -1
+        return self.ORDER.index("A")
     
     def isFlush(self):
-        return len(set(self.getSuits())) == 1
+        if len(set(self.getSuits())) != 1:
+            return -1
+        i = self.ORDER.index(self.__cards[4].value)
+        return i
     
     def hasPair(self):
-        return len(set(self.getValues())) == 4
+        if len(set(self.getValues())) != 4:
+            return -1
+        i = self.ORDER.index(self.getValues()[self.getCounts().index(2)])
+        return i
     
     def hasTwoPairs(self):
-        return len(set(self.getValues())) == 3 and \
-            max([self.getValues().count(card.value) for card in self.__cards]) == 2
+        if not (len(set(self.getValues())) == 3 and max(self.getCounts()) == 2):
+            return (-1, -1)
+        i, j = self.ORDER.index(self.getValues()[1]), \
+            self.ORDER.index(self.getValues()[3])
+        return i, j
     
     def hasThreeOfAKind(self):
-        return max([self.getValues().count(card.value) for card in self.__cards]) == 3
+        counts = self.getCounts()
+        if max(counts) != 3:
+            return -1
+        i = self.ORDER.index(self.getValues()[counts.index(3)])
+        return i
 
     def hasFourOfAKind(self):
-        return max([self.getValues().count(card.value) for card in self.__cards]) == 4
+        counts = self.getCounts()
+        if max(counts) != 4:
+            return -1
+        i = self.ORDER.index(self.getValues()[counts.index(4)])
+        return i
     
     def isFullHouse(self):
-        return sorted(set([self.getValues().count(card.value) for card in self.__cards])) == [2,3]
+        counts = self.getCounts()
+        if not (sorted(set(counts)) == [2,3]):
+            return -1
+        i = self.ORDER.index(self.getValues()[counts.index(3)])
+        return i 
     
     def getXHighestCard(self, rank=1):
-        return self.getValues()[-rank]
-
+        return self.ORDER.index(self.getValues()[-rank])
+    
+    def getResults(self):
+        return [self.isRoyalStraightFlush(), self.isStraightFlush(), \
+                self.hasFourOfAKind(), self.isFullHouse(), self.isFlush(), \
+                self.isStraight(), self.hasThreeOfAKind(), self.hasTwoPairs()[0], \
+                self.hasTwoPairs()[1], self.hasPair(), self.getXHighestCard(1), \
+                self.getXHighestCard(2), self.getXHighestCard(3), \
+                self.getXHighestCard(4), self.getXHighestCard(5)]
+    
+class Table:
+    @staticmethod
+    def determineWinner(hand1, hand2):
+        i = 0
+        hand1Results = hand1.getResults()
+        hand2Results = hand2.getResults()
+        while i < len(hand1Results):
+            if hand1Results[i] > hand2Results[i]:
+                return 1
+            elif hand1Results[i] < hand2Results[i]:
+                return 2
+            i += 1
+        return 0
+        
 class Problem54:
     def answer(self):
-        return 0
+        f = open("../euler/poker.txt", "r")
+        p1Winner = 0
+        for line in f:
+            hand1 = Hand(line[0:14])
+            hand2 = Hand(line[15:29])
+            if Table.determineWinner(hand1, hand2) == 1:
+                p1Winner += 1
+        return p1Winner
