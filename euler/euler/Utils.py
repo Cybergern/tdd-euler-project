@@ -1,5 +1,10 @@
 import random
 
+class Palindrome:
+    @staticmethod
+    def isPalindrome(x):
+        return str(x) == str(x)[::-1]
+
 class PrimeChecker:
     @staticmethod
     def millerRabinPass(a, s, d, n):
