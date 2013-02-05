@@ -20,6 +20,6 @@ class TestProblem55(unittest.TestCase):
         self.assertEquals(-1, self.problem.confirmNotLychrelNumber(196))
 
     def test_totalNumberOfLychrelNumbersBelowTenThousandShouldBeNonzero(self):
-        self.assertEquals(0, self.problem.answer())
+        self.assertEquals(249, self.problem.answer())
 if __name__ == '__main__':
     unittest.main()
