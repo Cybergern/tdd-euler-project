@@ -133,7 +133,7 @@ class Table:
         
 class Problem54:
     def answer(self):
-        f = open("../euler/poker.txt", "r")
+        f = open("../euler/poker_54.txt", "r")
         p1Winner = 0
         for line in f:
             hand1 = Hand(line[0:14])

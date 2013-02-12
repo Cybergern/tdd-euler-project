@@ -33,7 +33,5 @@ class Problem58:
             total = (size-1)/2 * 4 + 1
             totalPrimes += len([x for x in diagonals[-4:-1] if self.primeChecker.isPrime(x)])
             ratio = totalPrimes / total
-            print("size == " + str(size))
-            print("ratio == " + str(ratio))
         return size
             
