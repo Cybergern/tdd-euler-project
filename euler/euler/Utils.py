@@ -5,6 +5,31 @@ class Palindrome:
     def isPalindrome(x):
         return str(x) == str(x)[::-1]
 
+class Numbers:
+    @staticmethod
+    def tri(x):
+        return (x*(x+1))/2
+
+    @staticmethod
+    def sqr(x):
+        return x**2
+    
+    @staticmethod
+    def pen(x):
+        return (x*(3*x-1))/2
+    
+    @staticmethod
+    def hex(x):
+        return x*(2*x-1)
+    
+    @staticmethod
+    def hep(x):
+        return (x*(5*x-3))/2
+    
+    @staticmethod
+    def oct(x):
+        return x*(3*x-2)
+
 class PrimeChecker:
     @staticmethod
     def millerRabinPass(a, s, d, n):
