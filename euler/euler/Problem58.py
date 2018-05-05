@@ -1,14 +1,16 @@
 from euler.Utils import PrimeChecker
 
+
 class Problem58:
     
     def __init__(self):
         self.primeChecker = PrimeChecker()
         self.primeChecker.initPrimeFactoring()
 
-    def getDiagonalsFromSpiralOfSize(self, size, diagonals=None):
+    @staticmethod
+    def get_diagonals_from_spiral_of_size(size, diagonals=None):
         counter = 1
-        if diagonals == None:
+        if diagonals is None:
             diagonals = []
             for i in range(0, int((size-1)/2)):
                 for _ in range(0, 4):
@@ -26,12 +28,11 @@ class Problem58:
         size = 1
         ratio = 100
         diagonals = None
-        totalPrimes = 0
+        total_primes = 0
         while ratio >= 0.10:
             size += 2
-            diagonals = self.getDiagonalsFromSpiralOfSize(size, diagonals)
+            diagonals = self.get_diagonals_from_spiral_of_size(size, diagonals)
             total = (size-1)/2 * 4 + 1
-            totalPrimes += len([x for x in diagonals[-4:-1] if self.primeChecker.isPrime(x)])
-            ratio = totalPrimes / total
+            total_primes += len([x for x in diagonals[-4:-1] if self.primeChecker.isPrime(x)])
+            ratio = total_primes / total
         return size
-            

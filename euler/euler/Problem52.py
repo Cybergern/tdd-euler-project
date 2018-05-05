@@ -1,12 +1,13 @@
 class Problem52:
-    def getDigits(self, n):
+    @staticmethod
+    def get_digits(n):
         return "".join(sorted(list(str(n))))
     
-    def containsSameDigits(self, n, multiples):
-        digits = self.getDigits(n)
+    def contains_same_digits(self, n, multiples):
+        digits = self.get_digits(n)
         i = 2
         while i <= multiples:
-            if not digits == self.getDigits(i*n):
+            if not digits == self.get_digits(i * n):
                 return False
             i += 1 
         return True
@@ -14,6 +15,6 @@ class Problem52:
     def answer(self):
         i = 100
         while True:
-            if self.containsSameDigits(i, 6):
+            if self.contains_same_digits(i, 6):
                 return i
             i += 1

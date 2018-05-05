@@ -1,9 +1,10 @@
 class Problem48:
-    def sumOfSelfExponentialNumbersUpTo(self, n):
-        totalSum = 0
+    @staticmethod
+    def sum_of_self_exponential_numbers_up_to(n):
+        total_sum = 0
         for i in range(1, n+1):
-            totalSum += i**i
-        return totalSum
+            total_sum += i**i
+        return total_sum
     
     def answer(self):
-        return self.sumOfSelfExponentialNumbersUpTo(1000)
+        return self.sum_of_self_exponential_numbers_up_to(1000)

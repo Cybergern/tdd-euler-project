@@ -1,62 +1,62 @@
 from euler.Utils import Numbers
 
+
 class Problem61:
     def __init__(self):
-        self.triList = self.generateListOfLength(Numbers.tri, 4)
-        self.sqrList = self.generateListOfLength(Numbers.sqr, 4)
-        self.penList = self.generateListOfLength(Numbers.pen, 4)
-        self.hexList = self.generateListOfLength(Numbers.hex, 4)
-        self.hepList = self.generateListOfLength(Numbers.hep, 4)
-        self.octList = self.generateListOfLength(Numbers.oct, 4)
-        self.allLists = [self.triList, self.sqrList, self.penList, self.hexList, self.hepList, \
-                            self.octList]
-    
-    def isInSets(self, checkSets, number):
-        for s in checkSets:
+        self.triList = self.generate_list_of_length(Numbers.tri, 4)
+        self.sqrList = self.generate_list_of_length(Numbers.sqr, 4)
+        self.penList = self.generate_list_of_length(Numbers.pen, 4)
+        self.hexList = self.generate_list_of_length(Numbers.hex, 4)
+        self.hepList = self.generate_list_of_length(Numbers.hep, 4)
+        self.octList = self.generate_list_of_length(Numbers.oct, 4)
+        self.allLists = [self.triList, self.sqrList, self.penList, self.hexList, self.hepList, self.octList]
+
+    @staticmethod
+    def is_in_sets(check_sets, number):
+        for s in check_sets:
             if number in s:
                 return True
         return False
-    
-    def generateListOfLength(self, function, length):
+
+    @staticmethod
+    def generate_list_of_length(function_arg, length):
         result = []
-        startRange = int("1".ljust(length, "0"))
-        endRange = int("1".ljust(length+1, "0"))
+        start_range = int("1".ljust(length, "0"))
+        end_range = int("1".ljust(length + 1, "0"))
         i = 1
-        curr = function(i)
-        while curr < endRange:
-            if curr > startRange:
+        curr = function_arg(i)
+        while curr < end_range:
+            if curr > start_range:
                 result.append(int(curr))
-            curr = function(i)
+            curr = function_arg(i)
             i += 1
         return result
-    
-    def getNumbersStartingWith(self, start, lookSet):
-        return [x for x in lookSet if str(x).startswith(start)]
-    
-    def checkListsFor(self, listsToCheck, number, solution):
-        if len(listsToCheck) == 0:
+
+    @staticmethod
+    def get_numbers_starting_with(start, look_set):
+        return [x for x in look_set if str(x).startswith(start)]
+
+    def check_lists_for(self, lists_to_check, number, solution):
+        if len(lists_to_check) == 0:
             if str(solution[-1])[-2:] == str(solution[0])[:2]:
                 return solution
             else:
                 return None
-        for s in listsToCheck:
-            matchingNums = self.getNumbersStartingWith(str(number)[-2:], s)
-            for i in matchingNums:
-                result = self.checkListsFor([x for x in listsToCheck if x != s], i, \
-                                            solution + [i])
-                if result != None:
+        for s in lists_to_check:
+            matching_nums = self.get_numbers_starting_with(str(number)[-2:], s)
+            for i in matching_nums:
+                result = self.check_lists_for([x for x in lists_to_check if x != s], i, solution + [i])
+                if result is not None:
                     return result
-             
-    def answerForThreeNumbers(self):
+
+    def answer_for_three_numbers(self):
         for n in self.triList:
-            solution = self.checkListsFor([self.sqrList, self.penList], n, [n]) 
-            if solution != None:
+            solution = self.check_lists_for([self.sqrList, self.penList], n, [n])
+            if solution is not None:
                 return solution
 
-             
     def answer(self):
         for n in self.triList:
-            solution = self.checkListsFor([x for x in self.allLists if x != self.triList], n, [n]) 
-            if solution != None:
+            solution = self.check_lists_for([x for x in self.allLists if x != self.triList], n, [n])
+            if solution is not None:
                 return sum(solution)
-            

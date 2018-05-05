@@ -1,10 +1,12 @@
 from math import factorial
 
+
 class Problem53:
-    def comb(self, n, r):
+    @staticmethod
+    def comb(n, r):
         assert r <= n
-        return factorial(n)/(factorial(r)*factorial(n-r))
-    
+        return factorial(n) / (factorial(r) * factorial(n - r))
+
     def answer(self):
         c = 0
         for n in range(1, 101):

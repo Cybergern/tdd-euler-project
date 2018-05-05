@@ -1,11 +1,12 @@
 class Problem56:
-    def getDigitSum(self, number):
+    @staticmethod
+    def get_digit_sum(number):
         return sum([int(digit) for digit in str(number)])
-    
+
     def answer(self):
-        maxSum = 0
+        max_sum = 0
         for i in range(1, 100):
             for j in range(1, 100):
-                if self.getDigitSum(i**j) > maxSum:
-                    maxSum = self.getDigitSum(i**j)
-        return maxSum
+                if self.get_digit_sum(i ** j) > max_sum:
+                    max_sum = self.get_digit_sum(i ** j)
+        return max_sum
