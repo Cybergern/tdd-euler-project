@@ -5,7 +5,7 @@ class Problem55:
     def confirm_not_lychrel_number(self, number):
         n = number
         for i in range(0, 50):
-            if Palindrome.isPalindrome(n + self.reverse(n)):
+            if Palindrome.is_palindrome(n + self.reverse(n)):
                 return i + 1
             n = n + self.reverse(n)
         return -1

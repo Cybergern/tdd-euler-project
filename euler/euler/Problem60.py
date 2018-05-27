@@ -4,8 +4,8 @@ from euler.Utils import PrimeChecker
 class Problem60:
     def __init__(self, prime_limit):
         self.primeChecker = PrimeChecker()
-        self.primeChecker.initPrimeFactoring()
-        self.primes = PrimeChecker.primesBelow(prime_limit)
+        self.primeChecker.init_prime_factoring()
+        self.primes = PrimeChecker.primes_below(prime_limit)
         self.primes.remove(2)
         self.pairs = self.build_pairs(self.primes)
     
@@ -17,8 +17,8 @@ class Problem60:
             pairs[p1] = set()
             for q in range(primes.index(p1), len(primes)):
                 p2 = primes[q]
-                if self.primeChecker.isPrime(int(str(p1) + str(p2))) and \
-                        self.primeChecker.isPrime(int(str(p2) + str(p1))):
+                if self.primeChecker.is_prime(int(str(p1) + str(p2))) and \
+                        self.primeChecker.is_prime(int(str(p2) + str(p1))):
                     pairs[p1].add(p2)
         return pairs
     

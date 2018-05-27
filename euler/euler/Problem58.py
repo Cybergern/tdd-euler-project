@@ -5,7 +5,7 @@ class Problem58:
     
     def __init__(self):
         self.primeChecker = PrimeChecker()
-        self.primeChecker.initPrimeFactoring()
+        self.primeChecker.init_prime_factoring()
 
     @staticmethod
     def get_diagonals_from_spiral_of_size(size, diagonals=None):
@@ -33,6 +33,6 @@ class Problem58:
             size += 2
             diagonals = self.get_diagonals_from_spiral_of_size(size, diagonals)
             total = (size-1)/2 * 4 + 1
-            total_primes += len([x for x in diagonals[-4:-1] if self.primeChecker.isPrime(x)])
+            total_primes += len([x for x in diagonals[-4:-1] if self.primeChecker.is_prime(x)])
             ratio = total_primes / total
         return size

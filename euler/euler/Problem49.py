@@ -5,7 +5,7 @@ class Problem49:
 
     def tri_sequence_is_prime_and_permutation(self, start, step):
         for n in range(0, 3):
-            if not PrimeChecker.isPrime(start + n * step):
+            if not PrimeChecker.is_prime(start + n * step):
                 return False
         for n in range(0, 3):
             if not self.is_permutation_of(start + n * step, start):

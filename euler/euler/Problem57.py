@@ -5,7 +5,7 @@ class Problem57:
     @staticmethod
     def get_square_root_iteration(iterations):
         if iterations == 1:
-            return Fraction(3,2)
+            return Fraction(3, 2)
         n = 2
         for _ in range(1, iterations):
             n = 2 + Fraction(1, n)

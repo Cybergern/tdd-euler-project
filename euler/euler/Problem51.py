@@ -10,13 +10,13 @@ class Problem51:
         prime_count = 0
         for i in range(0, 10):
             test_number = number.replace(replace_digit, str(i))
-            if PrimeChecker.isPrime(int(test_number)) \
+            if PrimeChecker.is_prime(int(test_number)) \
                     and self.has_equal_number_of_digits(test_number, number):
                 prime_count += 1
         return prime_count == prime_variations
 
     def answer(self):
-        for prime in PrimeChecker.primesBelow(1000000):
+        for prime in PrimeChecker.primes_below(1000000):
             if prime > 100000:
                 s = str(prime)
                 last_digit = s[5:6]
